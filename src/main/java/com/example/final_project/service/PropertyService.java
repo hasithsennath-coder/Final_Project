@@ -61,6 +61,45 @@ public class PropertyService {
         return propertyRepository.save(property);
     }
 
+
+    // --- ADD THIS NEW METHOD ---
+    public Property saveProperty(Property property, org.springframework.web.multipart.MultipartFile[] files) {
+        // 1. Set Status to PENDING so it appears in Admin Dashboard
+        if (property.getId() == null) {
+            property.setStatus(PropertyStatus.PENDING);
+            property.setCreatedAt(LocalDateTime.now());
+        }
+
+        // 2. Save the property first to get an ID
+        Property savedProperty = propertyRepository.save(property);
+
+        // 3. Handle Image Uploads
+        if (files != null && files.length > 0) {
+            for (org.springframework.web.multipart.MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    // Store the file to the 'uploads' folder
+                    String filePath = fileStorageService.storeFile(file);
+
+                    // Create a database record linking the photo to the property
+                    com.example.final_project.model.PropertyMedia media = com.example.final_project.model.PropertyMedia.builder()
+                            .property(savedProperty)
+                            .filePath(filePath)
+                            .build();
+
+                    propertyMediaRepository.save(media);
+
+                    // Set the first image as the main thumbnail if not set
+                    if (savedProperty.getImageUrl() == null) {
+                        savedProperty.setImageUrl(filePath);
+                        propertyRepository.save(savedProperty);
+                    }
+                }
+            }
+        }
+        return savedProperty;
+    }
+
+
     public Property updateProperty(Long id, Property updatedProperty) {
         Property existingProperty = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found with id: " + id));

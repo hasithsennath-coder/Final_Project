@@ -1,6 +1,9 @@
 package com.example.final_project.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -81,5 +84,21 @@ public class Property {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    // --- ADD THIS CODE TO Property.java ---
+
+    // 1. Link to the media table
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private java.util.List<PropertyMedia> media;
+
+    // 2. Create a virtual list of URLs for the frontend to read
+    @Transient // This means "don't create a column in the database for this, just calculate it"
+    public java.util.List<String> getImageUrls() {
+        if (media == null) return new java.util.ArrayList<>();
+        // Convert the list of Media objects to a list of String paths (e.g., "/uploads/img1.jpg")
+        return media.stream()
+                .map(m -> "/uploads/" + java.nio.file.Paths.get(m.getFilePath()).getFileName().toString())
+                .collect(java.util.stream.Collectors.toList());
     }
 }
