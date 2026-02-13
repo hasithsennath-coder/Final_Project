@@ -325,16 +325,16 @@
             document.title = `${property.title} - Real Estate`;
             document.getElementById('propTitle').textContent = property.title;
             document.getElementById('propAddress').textContent = property.address;
-            document.getElementById('propTypeBadge').textContent = property.type === 'RENT' ? 'RENT' : 'SALE';
-            document.getElementById('propStatusBadge').textContent = property.status === 'AVAILABLE' ? (property.type === 'RENT' ? 'For Rent' : 'For Sale') : property.status;
+            document.getElementById('propTypeBadge').textContent = property.type === 'RENT' ? 'RENT' : property.type === 'SHORT_STAY_RENTAL' ? 'SHORT-STAY' : 'SALE';
+            document.getElementById('propStatusBadge').textContent = property.type === 'SHORT_STAY_RENTAL' ? 'Short-stay Rental' : (property.status === 'AVAILABLE' ? (property.type === 'RENT' ? 'For Rent' : 'For Sale') : property.status);
 
             document.getElementById('propPrice').textContent = `$${property.price.toLocaleString()}`;
-            document.getElementById('propPriceLabel').textContent = property.type === 'RENT' ? '/ month' : 'total price';
+            document.getElementById('propPriceLabel').textContent = property.type === 'RENT' ? '/ month' : property.type === 'SHORT_STAY_RENTAL' ? '/ night' : 'total price';
 
             document.getElementById('propBedrooms').textContent = property.bedrooms || 0;
             document.getElementById('propBathrooms').textContent = property.bathrooms || 0;
             document.getElementById('propArea').textContent = property.areaSqFt || 0;
-            document.getElementById('propType').textContent = property.type || 'Property';
+            document.getElementById('propType').textContent = property.houseType ? property.houseType.replace(/_/g, ' ') : (property.type || 'Property');
 
             // Description
             document.getElementById('propDescription').textContent = property.detailedDescription || property.description || 'No description available.';

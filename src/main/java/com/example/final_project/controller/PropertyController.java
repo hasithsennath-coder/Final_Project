@@ -81,6 +81,7 @@ public class PropertyController {
             @RequestParam("address") String address,
             @RequestParam("price") java.math.BigDecimal price,
             @RequestParam("type") String type,
+            @RequestParam(value = "houseType", required = false) String houseType,
             @RequestParam(value = "bedrooms", required = false) Integer bedrooms,
             @RequestParam(value = "bathrooms", required = false) Integer bathrooms,
             @RequestParam(value = "areaSqFt", required = false) Double areaSqFt,
@@ -104,6 +105,7 @@ public class PropertyController {
             dto.setAddress(address);
             dto.setPrice(price);
             dto.setType(type);
+            dto.setHouseType(houseType);
             dto.setBedrooms(bedrooms);
             dto.setBathrooms(bathrooms);
             dto.setAreaSqFt(areaSqFt);

@@ -286,222 +286,286 @@
                 </div>
                 <form id="dashboardListingForm" class="space-y-6">
                     <!-- Basic Info -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
-                                class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">1</span>
-                            Basic Info</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-1">Type</label>
-                                <select id="dashboardPropertyType" required
+
+                    <div class="h-10"></div>
+            </div>
+
+            <!-- Listings View -->
+            <div id="view-listings" class="hidden flex-col max-w-[1400px] w-full mx-auto p-6 md:p-10 gap-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-white text-3xl font-bold">My Listings</h1>
+                        <p class="text-gray-400 mt-1">Manage your property listings and status.</p>
+                    </div>
+                    <button id="btn-add-listing"
+                        class="flex cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary hover:bg-green-400 transition-colors text-black text-sm font-bold tracking-[0.015em] shadow-[0_0_15px_rgba(6,249,128,0.3)]">
+                        <span class="material-symbols-outlined text-[20px] mr-2">add_circle</span>
+                        Add Listing
+                    </button>
+                </div>
+
+                <div id="my-listings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated by JS -->
+                    <div class="col-span-full text-center py-20 bg-white/5 rounded-xl border border-white/5">
+                        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary mx-auto">
+                        </div>
+                        <p class="text-gray-400 mt-4">Loading your listings...</p>
+                    </div>
+                </div>
+                <div class="h-10"></div>
+            </div>
+            </main>
+
+            <!-- Modal -->
+            <div id="listing-modal"
+                class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+                <div
+                    class="bg-[#111] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-[#222] shadow-2xl relative">
+                    <button id="btn-close-modal"
+                        class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 p-2 rounded-full hover:bg-white/10 transition-colors">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                    <div class="p-8">
+                        <div class="text-center mb-8">
+                            <h2 class="text-2xl font-bold text-white">List Your Property</h2>
+                            <p class="text-gray-400">Fill out details below for review.</p>
+                        </div>
+                        <form id="dashboardListingForm" class="space-y-6">
+                            <!-- Basic Info -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
+                                        class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">1</span>
+                                    Basic Info</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">Type</label>
+                                        <select id="dashboardPropertyType" required
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                            <option value="" class="bg-[#111]">Select Type</option>
+                                            <option value="SALE" class="bg-[#111]">For Sale</option>
+                                            <option value="RENT" class="bg-[#111]">For Rent</option>
+                                            <option value="SHORT_STAY_RENTAL" class="bg-[#111]">Short-stay Rental
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">House Type</label>
+                                        <select id="dashboardHouseType"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                            <option value="" class="bg-[#111]">Select House Type</option>
+                                            <option value="APARTMENT" class="bg-[#111]">Apartment</option>
+                                            <option value="MANUFACTURED" class="bg-[#111]">Manufactured</option>
+                                            <option value="HOUSE" class="bg-[#111]">House</option>
+                                            <option value="TOWNHOME" class="bg-[#111]">Townhome</option>
+                                            <option value="LAND" class="bg-[#111]">Land</option>
+                                            <option value="MULTI_FAMILY" class="bg-[#111]">Multi-Family</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">Price (LKR)</label>
+                                        <input type="number" id="dashboardPropertyPrice" required
+                                            placeholder="e.g 25000000"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">Address</label>
+                                        <input type="text" id="dashboardPropertyAddress" required
+                                            placeholder="Full Address"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">Title</label>
+                                        <input type="text" id="dashboardPropertyTitle" required
+                                            placeholder="Property Title"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                                        <textarea id="dashboardPropertyDescription" rows="3"
+                                            placeholder="Description..."
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Details -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
+                                        class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">2</span>
+                                    Details</h3>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div><label class="block text-xs font-medium text-gray-400 mb-1">Beds</label><input
+                                            type="number" id="dashboardBedrooms" placeholder="0"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div><label class="block text-xs font-medium text-gray-400 mb-1">Baths</label><input
+                                            type="number" id="dashboardBathrooms" placeholder="0"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div><label class="block text-xs font-medium text-gray-400 mb-1">SqFt</label><input
+                                            type="number" id="dashboardAreaSqFt" placeholder="0"
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                </div>
+                                <!-- Amenities Checkboxes -->
+                                <div class="col-span-full">
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Amenities</label>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Pool"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Pool</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Gym"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Gym</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Parking"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Parking</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Garden"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Garden</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Security"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Security</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="AC"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">AC</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Furnished"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Furnished</span></label>
+                                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
+                                                name="amenities" value="Balcony"
+                                                class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
+                                                class="text-sm text-gray-300">Balcony</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Agent -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
+                                        class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">3</span>
+                                    Agent</h3>
+                                <select name="agent" id="dashboardAgentSelect" required
                                     class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                                    <option value="" class="bg-[#111]">Select Type</option>
-                                    <option value="HOUSE" class="bg-[#111]">House</option>
-                                    <option value="APARTMENT" class="bg-[#111]">Apartment</option>
-                                    <option value="LAND" class="bg-[#111]">Land</option>
-                                    <option value="COMMERCIAL" class="bg-[#111]">Commercial</option>
+                                    <option value="" class="bg-[#111]">Select Agent</option>
                                 </select>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-1">Price (LKR)</label>
-                                <input type="number" id="dashboardPropertyPrice" required placeholder="e.g 25000000"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-400 mb-1">Address</label>
-                                <input type="text" id="dashboardPropertyAddress" required placeholder="Full Address"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-400 mb-1">Title</label>
-                                <input type="text" id="dashboardPropertyTitle" required placeholder="Property Title"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-400 mb-1">Description</label>
-                                <textarea id="dashboardPropertyDescription" rows="3" placeholder="Description..."
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"></textarea>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Details -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
-                                class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">2</span>
-                            Details</h3>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div><label class="block text-xs font-medium text-gray-400 mb-1">Beds</label><input
-                                    type="number" id="dashboardBedrooms" placeholder="0"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <!-- Resources -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
+                                        class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">4</span>
+                                    Resource Link</h3>
+                                <div class="border border-white/10 rounded-xl p-4 bg-white/5">
+                                    <label class="block text-sm font-medium text-gray-300 mb-2"
+                                        for="dashboardDriveLink">Google Drive Link</label>
+                                    <input type="url" id="dashboardDriveLink" required
+                                        placeholder="https://drive.google.com/file/d/... or /drive/folders/..."
+                                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    <p class="text-xs text-gray-400 mt-2">Paste a shareable Google Drive file or folder
+                                        link containing the property images.</p>
+                                </div>
                             </div>
-                            <div><label class="block text-xs font-medium text-gray-400 mb-1">Baths</label><input
-                                    type="number" id="dashboardBathrooms" placeholder="0"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                            <div><label class="block text-xs font-medium text-gray-400 mb-1">SqFt</label><input
-                                    type="number" id="dashboardAreaSqFt" placeholder="0"
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                        </div>
-                        <!-- Amenities Checkboxes -->
-                        <div class="col-span-full">
-                            <label class="block text-sm font-medium text-gray-400 mb-2">Amenities</label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Pool"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Pool</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Gym"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Gym</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Parking"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Parking</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Garden"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Garden</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Security"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Security</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="AC"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">AC</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Furnished"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Furnished</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox"
-                                        name="amenities" value="Balcony"
-                                        class="w-4 h-4 rounded bg-white/10 border-white/20 text-primary focus:ring-primary"><span
-                                        class="text-sm text-gray-300">Balcony</span></label>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Agent -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
-                                class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">3</span>
-                            Agent</h3>
-                        <select name="agent" id="dashboardAgentSelect" required
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            <option value="" class="bg-[#111]">Select Agent</option>
-                        </select>
-                    </div>
-
-                    <!-- Resources -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
-                                class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">4</span>
-                            Resource Link</h3>
-                        <div
-                            class="border border-white/10 rounded-xl p-4 bg-white/5">
-                            <label class="block text-sm font-medium text-gray-300 mb-2" for="dashboardDriveLink">Google Drive Link</label>
-                            <input type="url" id="dashboardDriveLink" required
-                                placeholder="https://drive.google.com/file/d/... or /drive/folders/..."
-                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            <p class="text-xs text-gray-400 mt-2">Paste a shareable Google Drive file or folder link containing the property images.</p>
-                        </div>
-                    </div>
-
-                    <!-- Contact -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
-                                class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">5</span>
-                            Contact</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div><label class="block text-sm font-medium text-gray-400 mb-1">Name</label><input
-                                    type="text" id="dashboardContactName" required
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <!-- Contact -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><span
+                                        class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">5</span>
+                                    Contact</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div><label class="block text-sm font-medium text-gray-400 mb-1">Name</label><input
+                                            type="text" id="dashboardContactName" required
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div><label class="block text-sm font-medium text-gray-400 mb-1">Phone</label><input
+                                            type="tel" id="dashboardContactPhone" required
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                    <div class="md:col-span-2"><label
+                                            class="block text-sm font-medium text-gray-400 mb-1">Email</label><input
+                                            type="email" id="dashboardContactEmail" required
+                                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                    </div>
+                                </div>
                             </div>
-                            <div><label class="block text-sm font-medium text-gray-400 mb-1">Phone</label><input
-                                    type="tel" id="dashboardContactPhone" required
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                            <div class="md:col-span-2"><label
-                                    class="block text-sm font-medium text-gray-400 mb-1">Email</label><input
-                                    type="email" id="dashboardContactEmail" required
-                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="pt-4 border-t border-white/10">
-                        <button type="submit"
-                            class="w-full py-3 bg-primary text-black font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-primary/20">Submit
-                            Listing</button>
+                            <div class="pt-4 border-t border-white/10">
+                                <button type="submit"
+                                    class="w-full py-3 bg-primary text-black font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-primary/20">Submit
+                                    Listing</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <script type="module" src="/src/main.js"></script>
-    <script type="module">
-        import { propertyApi } from '/src/main.js';
+            <script type="module" src="/src/main.js"></script>
+            <script type="module">
+                import { propertyApi } from '/src/main.js';
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Check if user is logged in
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
-                window.location.href = '/login.html';
-                return;
-            }
+                document.addEventListener('DOMContentLoaded', async () => {
+                    // Check if user is logged in
+                    const userStr = localStorage.getItem('user');
+                    if (!userStr) {
+                        window.location.href = '/login.html';
+                        return;
+                    }
 
-            const user = JSON.parse(userStr);
+                    const user = JSON.parse(userStr);
 
-            // Basic Role Protection
-            if (user.role === 'ADMIN') {
-                window.location.href = '/admin-dashboard.html';
-                return;
-            }
+                    // Basic Role Protection
+                    if (user.role === 'ADMIN') {
+                        window.location.href = '/admin-dashboard.html';
+                        return;
+                    }
 
-            // Update UI with user data
-            const firstName = user.name ? user.name.split(' ')[0] : 'User';
-            const initial = firstName.charAt(0).toUpperCase();
+                    // Update UI with user data
+                    const firstName = user.name ? user.name.split(' ')[0] : 'User';
+                    const initial = firstName.charAt(0).toUpperCase();
 
-            document.getElementById('welcome-name').textContent = firstName;
-            document.getElementById('profile-name').textContent = user.name || 'User';
-            document.getElementById('profile-avatar').textContent = initial;
-            document.getElementById('sidebar-avatar').textContent = initial;
-            document.getElementById('sidebar-username').textContent = firstName;
+                    document.getElementById('welcome-name').textContent = firstName;
+                    document.getElementById('profile-name').textContent = user.name || 'User';
+                    document.getElementById('profile-avatar').textContent = initial;
+                    document.getElementById('sidebar-avatar').textContent = initial;
+                    document.getElementById('sidebar-username').textContent = firstName;
 
-            // Sidebar dropdown toggle
-            const sidebarUserBtn = document.getElementById('sidebar-user-btn');
-            const sidebarDropdown = document.getElementById('sidebar-dropdown');
+                    // Sidebar dropdown toggle
+                    const sidebarUserBtn = document.getElementById('sidebar-user-btn');
+                    const sidebarDropdown = document.getElementById('sidebar-dropdown');
 
-            sidebarUserBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sidebarDropdown.classList.toggle('hidden');
-            });
+                    sidebarUserBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        sidebarDropdown.classList.toggle('hidden');
+                    });
 
-            document.addEventListener('click', () => {
-                sidebarDropdown.classList.add('hidden');
-            });
+                    document.addEventListener('click', () => {
+                        sidebarDropdown.classList.add('hidden');
+                    });
 
-            // Logout handler
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-                window.location.href = '/index.html';
-            });
+                    // Logout handler
+                    document.getElementById('logout-btn').addEventListener('click', () => {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                        window.location.href = '/index.html';
+                    });
 
-            const API_BASE = 'http://localhost:8080';
-            const token = localStorage.getItem('token');
-            const notificationsContainer = document.getElementById('dashboardNotifications');
-            const clearNotificationsBtn = document.getElementById('clearNotificationsBtn');
-            let notificationItems = [];
+                    const API_BASE = 'http://localhost:8080';
+                    const token = localStorage.getItem('token');
+                    const notificationsContainer = document.getElementById('dashboardNotifications');
+                    const clearNotificationsBtn = document.getElementById('clearNotificationsBtn');
+                    let notificationItems = [];
 
-            const renderNotifications = (items) => {
-                if (!notificationsContainer) return;
-                if (!items || items.length === 0) {
-                    notificationsContainer.innerHTML = `
+                    const renderNotifications = (items) => {
+                        if (!notificationsContainer) return;
+                        if (!items || items.length === 0) {
+                            notificationsContainer.innerHTML = `
                         <div class="flex gap-3 items-start">
                             <div class="bg-primary/20 p-2 rounded-full text-primary shrink-0">
                                 <span class="material-symbols-outlined text-[18px]">notifications</span>
@@ -512,10 +576,10 @@
                             </div>
                         </div>
                     `;
-                    return;
-                }
+                            return;
+                        }
 
-                notificationsContainer.innerHTML = items.slice(0, 6).map(n => `
+                        notificationsContainer.innerHTML = items.slice(0, 6).map(n => `
                     <div class="flex gap-3 items-start">
                         <div class="bg-${(n.read || n.isRead) ? 'white/10 text-gray-400' : 'primary/20 text-primary'} p-2 rounded-full shrink-0">
                             <span class="material-symbols-outlined text-[18px]">campaign</span>
@@ -526,94 +590,94 @@
                         </div>
                     </div>
                 `).join('');
-            };
+                    };
 
-            const loadNotifications = async () => {
-                if (!token) return;
-                try {
-                    const res = await fetch(`${API_BASE}/api/notifications`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if (!res.ok) return;
-                    notificationItems = await res.json();
-                    renderNotifications(notificationItems);
-                } catch (e) {
-                    console.error('Notification load error:', e);
-                }
-            };
+                    const loadNotifications = async () => {
+                        if (!token) return;
+                        try {
+                            const res = await fetch(`${API_BASE}/api/notifications`, {
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+                            if (!res.ok) return;
+                            notificationItems = await res.json();
+                            renderNotifications(notificationItems);
+                        } catch (e) {
+                            console.error('Notification load error:', e);
+                        }
+                    };
 
-            const startNotificationStream = () => {
-                if (!token) return;
-                const stream = new EventSource(`${API_BASE}/api/notifications/stream?token=${encodeURIComponent(token)}`);
-                stream.addEventListener('notification', (event) => {
-                    try {
-                        const incoming = JSON.parse(event.data);
-                        notificationItems = [incoming, ...notificationItems];
-                        renderNotifications(notificationItems);
-                        loadMyListings();
-                    } catch (e) {
-                        console.error('Notification parse error:', e);
+                    const startNotificationStream = () => {
+                        if (!token) return;
+                        const stream = new EventSource(`${API_BASE}/api/notifications/stream?token=${encodeURIComponent(token)}`);
+                        stream.addEventListener('notification', (event) => {
+                            try {
+                                const incoming = JSON.parse(event.data);
+                                notificationItems = [incoming, ...notificationItems];
+                                renderNotifications(notificationItems);
+                                loadMyListings();
+                            } catch (e) {
+                                console.error('Notification parse error:', e);
+                            }
+                        });
+                        stream.onerror = () => {
+                            stream.close();
+                            setTimeout(startNotificationStream, 4000);
+                        };
+                    };
+
+                    if (clearNotificationsBtn) {
+                        clearNotificationsBtn.addEventListener('click', async () => {
+                            const unread = notificationItems.filter(n => !(n.read || n.isRead));
+                            await Promise.all(unread.map(n =>
+                                fetch(`${API_BASE}/api/notifications/${n.id}/read`, {
+                                    method: 'PUT',
+                                    headers: { 'Authorization': `Bearer ${token}` }
+                                }).catch(() => null)
+                            ));
+                            await loadNotifications();
+                        });
                     }
-                });
-                stream.onerror = () => {
-                    stream.close();
-                    setTimeout(startNotificationStream, 4000);
-                };
-            };
 
-            if (clearNotificationsBtn) {
-                clearNotificationsBtn.addEventListener('click', async () => {
-                    const unread = notificationItems.filter(n => !(n.read || n.isRead));
-                    await Promise.all(unread.map(n =>
-                        fetch(`${API_BASE}/api/notifications/${n.id}/read`, {
-                            method: 'PUT',
-                            headers: { 'Authorization': `Bearer ${token}` }
-                        }).catch(() => null)
-                    ));
-                    await loadNotifications();
-                });
-            }
+                    // Load Saved Properties
+                    const loadSavedProperties = async () => {
+                        const grid = document.getElementById('saved-properties-grid');
+                        if (!grid) return;
 
-            // Load Saved Properties
-            const loadSavedProperties = async () => {
-                const grid = document.getElementById('saved-properties-grid');
-                if (!grid) return;
+                        const getSaved = () => {
+                            const saved = localStorage.getItem(`saved_properties_${user.email}`);
+                            return saved ? JSON.parse(saved) : [];
+                        };
 
-                const getSaved = () => {
-                    const saved = localStorage.getItem(`saved_properties_${user.email}`);
-                    return saved ? JSON.parse(saved) : [];
-                };
+                        const savedIds = getSaved();
 
-                const savedIds = getSaved();
-
-                if (savedIds.length === 0) {
-                    grid.innerHTML = `
+                        if (savedIds.length === 0) {
+                            grid.innerHTML = `
                         <div class="col-span-full text-center py-10 bg-white/5 rounded-xl border border-white/5">
                             <span class="material-symbols-outlined text-4xl text-gray-600 mb-2">favorite_border</span>
                             <p class="text-gray-400">You haven't saved any properties yet.</p>
                             <a href="/properties.html" class="text-primary hover:underline mt-2 inline-block">Browse Properties</a>
                         </div>
                     `;
-                    return;
-                }
+                            return;
+                        }
 
-                try {
-                    const response = await propertyApi.getAll();
-                    const allProperties = response.data;
-                    const savedProperties = allProperties.filter(p => savedIds.includes(String(p.id)) || savedIds.includes(p.id));
+                        try {
+                            const response = await propertyApi.getAll();
+                            const allProperties = response.data;
+                            const savedProperties = allProperties.filter(p => savedIds.includes(String(p.id)) || savedIds.includes(p.id));
 
-                    if (savedProperties.length === 0) {
-                        grid.innerHTML = `
+                            if (savedProperties.length === 0) {
+                                grid.innerHTML = `
                             <div class="col-span-full text-center py-10 bg-white/5 rounded-xl border border-white/5">
                                 <span class="material-symbols-outlined text-4xl text-gray-600 mb-2">favorite_border</span>
                                 <p class="text-gray-400">No saved properties found.</p>
                                 <a href="/properties.html" class="text-primary hover:underline mt-2 inline-block">Browse Properties</a>
                             </div>
                         `;
-                        return;
-                    }
+                                return;
+                            }
 
-                    grid.innerHTML = savedProperties.map(property => `
+                            grid.innerHTML = savedProperties.map(property => `
                         <div class="group bg-card-dark rounded-xl border border-border-dark overflow-hidden hover:border-primary/50 transition-all duration-300">
                             <div class="relative h-40 overflow-hidden">
                                 <div class="absolute top-2 right-2 z-10 bg-black/60 backdrop-blur-sm rounded-lg px-2 py-1 flex items-center gap-1">
@@ -647,214 +711,216 @@
                         </div>
                     `).join('');
 
-                } catch (error) {
-                    console.error('Error loading saved properties:', error);
-                    grid.innerHTML = `
+                        } catch (error) {
+                            console.error('Error loading saved properties:', error);
+                            grid.innerHTML = `
                         <div class="col-span-full text-center py-10 bg-white/5 rounded-xl border border-white/5">
                             <span class="material-symbols-outlined text-4xl text-red-500 mb-2">error</span>
                             <p class="text-red-400">Error loading properties. Please try again.</p>
                         </div>
                     `;
-                }
-            };
+                        }
+                    };
 
-            // Helper to remove saved property
-            window.removeSaved = (id) => {
-                const saved = localStorage.getItem(`saved_properties_${user.email}`);
-                let savedIds = saved ? JSON.parse(saved) : [];
-                savedIds = savedIds.filter(savedId => String(savedId) !== String(id));
-                localStorage.setItem(`saved_properties_${user.email}`, JSON.stringify(savedIds));
-                loadSavedProperties();
-            };
+                    // Helper to remove saved property
+                    window.removeSaved = (id) => {
+                        const saved = localStorage.getItem(`saved_properties_${user.email}`);
+                        let savedIds = saved ? JSON.parse(saved) : [];
+                        savedIds = savedIds.filter(savedId => String(savedId) !== String(id));
+                        localStorage.setItem(`saved_properties_${user.email}`, JSON.stringify(savedIds));
+                        loadSavedProperties();
+                    };
 
-            loadSavedProperties();
-            loadNotifications();
-            startNotificationStream();
+                    loadSavedProperties();
+                    loadNotifications();
+                    startNotificationStream();
 
-            // --- LISTINGS FEATURE LOGIC ---
+                    // --- LISTINGS FEATURE LOGIC ---
 
-            // Elements
-            const viewDashboard = document.getElementById('view-dashboard');
-            const viewListings = document.getElementById('view-listings');
-            const navListings = document.getElementById('nav-listings');
-            const sidebarLinks = document.querySelectorAll('aside nav a');
-            const dashboardLink = sidebarLinks[0]; // Assuming dashboard is first link
+                    // Elements
+                    const viewDashboard = document.getElementById('view-dashboard');
+                    const viewListings = document.getElementById('view-listings');
+                    const navListings = document.getElementById('nav-listings');
+                    const sidebarLinks = document.querySelectorAll('aside nav a');
+                    const dashboardLink = sidebarLinks[0]; // Assuming dashboard is first link
 
-            const modal = document.getElementById('listing-modal');
-            const btnAddListing = document.getElementById('btn-add-listing');
-            const btnCloseModal = document.getElementById('btn-close-modal');
-            const listingForm = document.getElementById('dashboardListingForm');
+                    const modal = document.getElementById('listing-modal');
+                    const btnAddListing = document.getElementById('btn-add-listing');
+                    const btnCloseModal = document.getElementById('btn-close-modal');
+                    const listingForm = document.getElementById('dashboardListingForm');
 
-            // View Switching
-            if (navListings) {
-                navListings.addEventListener('click', () => {
-                    viewDashboard.classList.add('hidden');
-                    viewListings.classList.remove('hidden');
-                    viewListings.classList.add('flex');
-                    loadMyListings(); // Fetch on view
-                });
-            }
-
-            if (dashboardLink) {
-                dashboardLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    viewListings.classList.add('hidden');
-                    viewListings.classList.remove('flex');
-                    viewDashboard.classList.remove('hidden');
-                });
-            }
-
-            // Modal Logic
-            if (btnAddListing) {
-                btnAddListing.addEventListener('click', () => {
-                    modal.classList.remove('hidden');
-                    loadAgentsDialog();
-                });
-            }
-
-            if (btnCloseModal) {
-                btnCloseModal.addEventListener('click', () => {
-                    modal.classList.add('hidden');
-                });
-            }
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.add('hidden');
-            });
-
-            // Agents
-            async function loadAgentsDialog() {
-                const select = document.getElementById('dashboardAgentSelect');
-                if (select.options.length > 1) return;
-                try {
-                    const API_BASE = 'http://localhost:8080';
-                    const res = await fetch(`${API_BASE}/api/agents/public`);
-                    if (res.ok) {
-                        const agents = await res.json();
-                        agents.forEach(agent => {
-                            const opt = document.createElement('option');
-                            opt.value = agent.name;
-                            opt.textContent = agent.name;
-                            opt.className = "bg-[#111]";
-                            select.appendChild(opt);
+                    // View Switching
+                    if (navListings) {
+                        navListings.addEventListener('click', () => {
+                            viewDashboard.classList.add('hidden');
+                            viewListings.classList.remove('hidden');
+                            viewListings.classList.add('flex');
+                            loadMyListings(); // Fetch on view
                         });
                     }
-                } catch (e) { console.error("Agent load error", e); }
-            }
 
-            const isValidGoogleDriveLink = (value) => {
-                try {
-                    const url = new URL(value);
-                    if (url.protocol !== 'https:') return false;
-                    const host = url.hostname.toLowerCase();
-                    const path = url.pathname || '';
-
-                    if (host === 'drive.google.com') {
-                        return /^\/file\/d\/[^/]+/.test(path) ||
-                            /^\/drive\/folders\/[^/]+/.test(path) ||
-                            /^\/drive\/u\/\d+\/folders\/[^/]+/.test(path) ||
-                            (path === '/open' && url.searchParams.has('id')) ||
-                            (path === '/uc' && url.searchParams.has('id'));
+                    if (dashboardLink) {
+                        dashboardLink.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            viewListings.classList.add('hidden');
+                            viewListings.classList.remove('flex');
+                            viewDashboard.classList.remove('hidden');
+                        });
                     }
 
-                    if (host === 'docs.google.com') {
-                        return /^\/(document|spreadsheets|presentation|forms)\/d\/[^/]+/.test(path);
+                    // Modal Logic
+                    if (btnAddListing) {
+                        btnAddListing.addEventListener('click', () => {
+                            modal.classList.remove('hidden');
+                            loadAgentsDialog();
+                        });
                     }
 
-                    return false;
-                } catch (e) {
-                    return false;
-                }
-            };
-
-            // Submit
-            listingForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = listingForm.querySelector('button[type="submit"]');
-                const originalText = btn.textContent;
-                btn.disabled = true;
-                btn.textContent = 'Submitting...';
-
-                try {
-                    const formData = new FormData();
-                    formData.append('title', document.getElementById('dashboardPropertyTitle').value);
-                    formData.append('description', document.getElementById('dashboardPropertyDescription').value);
-                    formData.append('address', document.getElementById('dashboardPropertyAddress').value);
-                    formData.append('price', document.getElementById('dashboardPropertyPrice').value);
-                    formData.append('type', document.getElementById('dashboardPropertyType').value);
-                    formData.append('bedrooms', document.getElementById('dashboardBedrooms').value || 0);
-                    formData.append('bathrooms', document.getElementById('dashboardBathrooms').value || 0);
-                    formData.append('areaSqFt', document.getElementById('dashboardAreaSqFt').value || 0);
-
-                    const amenities = Array.from(document.querySelectorAll('#dashboardListingForm input[name="amenities"]:checked')).map(cb => cb.value);
-                    amenities.forEach(a => formData.append('amenities', a));
-
-                    formData.append('agentName', document.getElementById('dashboardAgentSelect').value);
-
-                    formData.append('ownerName', document.getElementById('dashboardContactName').value);
-                    formData.append('ownerPhone', document.getElementById('dashboardContactPhone').value);
-                    formData.append('ownerEmail', document.getElementById('dashboardContactEmail').value);
-                    const driveLink = document.getElementById('dashboardDriveLink').value.trim();
-                    if (!isValidGoogleDriveLink(driveLink)) {
-                        alert('Please enter a valid Google Drive file or folder link.');
-                        return;
+                    if (btnCloseModal) {
+                        btnCloseModal.addEventListener('click', () => {
+                            modal.classList.add('hidden');
+                        });
                     }
-                    formData.append('driveLink', driveLink);
 
-                    const token = localStorage.getItem('token');
-                    const API_BASE = 'http://localhost:8080';
-                    const res = await fetch(`${API_BASE}/api/properties/submit`, {
-                        method: 'POST',
-                        headers: { 'Authorization': `Bearer ${token}` },
-                        body: formData
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) modal.classList.add('hidden');
                     });
 
-                    if (res.ok) {
-                        alert('Listing submitted successfully!');
-                        modal.classList.add('hidden');
-                        listingForm.reset();
-                        loadMyListings();
-                    } else {
-                        const err = await res.json();
-                        alert('Failed: ' + (err.message || 'Unknown error'));
+                    // Agents
+                    async function loadAgentsDialog() {
+                        const select = document.getElementById('dashboardAgentSelect');
+                        if (select.options.length > 1) return;
+                        try {
+                            const API_BASE = 'http://localhost:8080';
+                            const res = await fetch(`${API_BASE}/api/agents/public`);
+                            if (res.ok) {
+                                const agents = await res.json();
+                                agents.forEach(agent => {
+                                    const opt = document.createElement('option');
+                                    opt.value = agent.name;
+                                    opt.textContent = agent.name;
+                                    opt.className = "bg-[#111]";
+                                    select.appendChild(opt);
+                                });
+                            }
+                        } catch (e) { console.error("Agent load error", e); }
                     }
-                } catch (err) {
-                    console.error(err);
-                    alert('Error submitting listing.');
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = originalText;
-                }
-            });
 
-            // Fetch Findings
-            async function loadMyListings() {
-                const grid = document.getElementById('my-listings-grid');
-                grid.innerHTML = '<div class="col-span-full text-center py-10"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-primary mx-auto"></div></div>';
+                    const isValidGoogleDriveLink = (value) => {
+                        try {
+                            const url = new URL(value);
+                            if (url.protocol !== 'https:') return false;
+                            const host = url.hostname.toLowerCase();
+                            const path = url.pathname || '';
 
-                try {
-                    const API_BASE = 'http://localhost:8080';
-                    const token = localStorage.getItem('token');
-                    const res = await fetch(`${API_BASE}/api/properties/my-listings`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
+                            if (host === 'drive.google.com') {
+                                return /^\/file\/d\/[^/]+/.test(path) ||
+                                    /^\/drive\/folders\/[^/]+/.test(path) ||
+                                    /^\/drive\/u\/\d+\/folders\/[^/]+/.test(path) ||
+                                    (path === '/open' && url.searchParams.has('id')) ||
+                                    (path === '/uc' && url.searchParams.has('id'));
+                            }
 
-                    if (res.ok) {
-                        const listings = await res.json();
-                        if (listings.length === 0) {
-                            grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10">No listings found. Add one!</div>';
-                            return;
+                            if (host === 'docs.google.com') {
+                                return /^\/(document|spreadsheets|presentation|forms)\/d\/[^/]+/.test(path);
+                            }
+
+                            return false;
+                        } catch (e) {
+                            return false;
                         }
+                    };
 
-                        grid.innerHTML = listings.map(p => {
-                            let badgeColor = 'bg-gray-500/20 text-gray-400';
-                            let statusLabel = p.status;
-                            if (p.status === 'PENDING') { badgeColor = 'bg-yellow-500/20 text-yellow-500'; }
-                            if (p.status === 'AVAILABLE') { badgeColor = 'bg-green-500/20 text-green-500'; statusLabel = 'APPROVED'; }
-                            if (p.status === 'REJECTED') { badgeColor = 'bg-red-500/20 text-red-500'; }
-                            if (p.status === 'SOLD') { badgeColor = 'bg-blue-500/20 text-blue-500'; }
+                    // Submit
+                    listingForm.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const btn = listingForm.querySelector('button[type="submit"]');
+                        const originalText = btn.textContent;
+                        btn.disabled = true;
+                        btn.textContent = 'Submitting...';
 
-                            return `
+                        try {
+                            const formData = new FormData();
+                            formData.append('title', document.getElementById('dashboardPropertyTitle').value);
+                            formData.append('description', document.getElementById('dashboardPropertyDescription').value);
+                            formData.append('address', document.getElementById('dashboardPropertyAddress').value);
+                            formData.append('price', document.getElementById('dashboardPropertyPrice').value);
+                            formData.append('type', document.getElementById('dashboardPropertyType').value);
+                            const houseTypeVal = document.getElementById('dashboardHouseType').value;
+                            if (houseTypeVal) formData.append('houseType', houseTypeVal);
+                            formData.append('bedrooms', document.getElementById('dashboardBedrooms').value || 0);
+                            formData.append('bathrooms', document.getElementById('dashboardBathrooms').value || 0);
+                            formData.append('areaSqFt', document.getElementById('dashboardAreaSqFt').value || 0);
+
+                            const amenities = Array.from(document.querySelectorAll('#dashboardListingForm input[name="amenities"]:checked')).map(cb => cb.value);
+                            amenities.forEach(a => formData.append('amenities', a));
+
+                            formData.append('agentName', document.getElementById('dashboardAgentSelect').value);
+
+                            formData.append('ownerName', document.getElementById('dashboardContactName').value);
+                            formData.append('ownerPhone', document.getElementById('dashboardContactPhone').value);
+                            formData.append('ownerEmail', document.getElementById('dashboardContactEmail').value);
+                            const driveLink = document.getElementById('dashboardDriveLink').value.trim();
+                            if (!isValidGoogleDriveLink(driveLink)) {
+                                alert('Please enter a valid Google Drive file or folder link.');
+                                return;
+                            }
+                            formData.append('driveLink', driveLink);
+
+                            const token = localStorage.getItem('token');
+                            const API_BASE = 'http://localhost:8080';
+                            const res = await fetch(`${API_BASE}/api/properties/submit`, {
+                                method: 'POST',
+                                headers: { 'Authorization': `Bearer ${token}` },
+                                body: formData
+                            });
+
+                            if (res.ok) {
+                                alert('Listing submitted successfully!');
+                                modal.classList.add('hidden');
+                                listingForm.reset();
+                                loadMyListings();
+                            } else {
+                                const err = await res.json();
+                                alert('Failed: ' + (err.message || 'Unknown error'));
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            alert('Error submitting listing.');
+                        } finally {
+                            btn.disabled = false;
+                            btn.textContent = originalText;
+                        }
+                    });
+
+                    // Fetch listings
+                    async function loadMyListings() {
+                        const grid = document.getElementById('my-listings-grid');
+                        grid.innerHTML = '<div class="col-span-full text-center py-10"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-primary mx-auto"></div></div>';
+
+                        try {
+                            const API_BASE = 'http://localhost:8080';
+                            const token = localStorage.getItem('token');
+                            const res = await fetch(`${API_BASE}/api/properties/my-listings`, {
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+
+                            if (res.ok) {
+                                const listings = await res.json();
+                                if (listings.length === 0) {
+                                    grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10">No listings found. Add one!</div>';
+                                    return;
+                                }
+
+                                grid.innerHTML = listings.map(p => {
+                                    let badgeColor = 'bg-gray-500/20 text-gray-400';
+                                    let statusLabel = p.status;
+                                    if (p.status === 'PENDING') { badgeColor = 'bg-yellow-500/20 text-yellow-500'; }
+                                    if (p.status === 'AVAILABLE') { badgeColor = 'bg-green-500/20 text-green-500'; statusLabel = 'APPROVED'; }
+                                    if (p.status === 'REJECTED') { badgeColor = 'bg-red-500/20 text-red-500'; }
+                                    if (p.status === 'SOLD') { badgeColor = 'bg-blue-500/20 text-blue-500'; }
+
+                                    return `
                                 <div class="bg-[#111] border border-[#222] rounded-xl overflow-hidden hover:border-primary/50 transition-all">
                                     <div class="h-48 bg-cover bg-center relative" style="background-image: url('${p.imageUrl || '/placeholder.jpg'}')">
                                         <div class="absolute top-2 right-2 px-2 py-1 rounded text-xs font-bold ${badgeColor}">
@@ -870,17 +936,17 @@
                                     </div>
                                 </div>
                              `;
-                        }).join('');
-                    } else {
-                        grid.innerHTML = '<div class="col-span-full text-center text-red-400">Failed to load listings.</div>';
+                                }).join('');
+                            } else {
+                                grid.innerHTML = '<div class="col-span-full text-center text-red-400">Failed to load listings.</div>';
+                            }
+                        } catch (e) {
+                            console.error(e);
+                            grid.innerHTML = '<div class="col-span-full text-center text-red-400">Network error.</div>';
+                        }
                     }
-                } catch (e) {
-                    console.error(e);
-                    grid.innerHTML = '<div class="col-span-full text-center text-red-400">Network error.</div>';
-                }
-            }
-        });
-    </script>
+                });
+            </script>
 </body>
 
 </html>

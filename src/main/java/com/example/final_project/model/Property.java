@@ -51,6 +51,9 @@ public class Property {
     private PropertyType type;
 
     @Enumerated(EnumType.STRING)
+    private HouseType houseType;
+
+    @Enumerated(EnumType.STRING)
     private PropertyStatus status;
 
     // Main thumbnail shown in cards.

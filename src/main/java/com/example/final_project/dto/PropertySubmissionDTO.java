@@ -11,7 +11,8 @@ public class PropertySubmissionDTO {
     private String description;
     private String address;
     private BigDecimal price;
-    private String type; // "HOUSE", "APARTMENT", "LAND", "COMMERCIAL"
+    private String type; // "SALE", "RENT", "SHORT_STAY_RENTAL"
+    private String houseType; // "APARTMENT", "MANUFACTURED", "HOUSE", "TOWNHOME", "LAND", "MULTI_FAMILY"
     private Integer bedrooms;
     private Integer bathrooms;
     private Double areaSqFt;

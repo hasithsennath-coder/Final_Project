@@ -4,6 +4,7 @@ import com.example.final_project.model.PropertyMedia;
 import com.example.final_project.model.Property;
 import com.example.final_project.model.PropertyStatus;
 import com.example.final_project.model.PropertyType;
+import com.example.final_project.model.HouseType;
 import com.example.final_project.model.User;
 import com.example.final_project.repository.PropertyMediaRepository;
 import com.example.final_project.repository.PropertyRepository;
@@ -133,6 +134,7 @@ public class PropertyService {
         existingProperty.setAddress(updatedProperty.getAddress());
         existingProperty.setPrice(updatedProperty.getPrice());
         existingProperty.setType(updatedProperty.getType());
+        existingProperty.setHouseType(updatedProperty.getHouseType());
         existingProperty.setStatus(updatedProperty.getStatus());
         existingProperty.setImageUrl(updatedProperty.getImageUrl());
         existingProperty.setBedrooms(updatedProperty.getBedrooms());
@@ -182,6 +184,7 @@ public class PropertyService {
                 .address(dto.getAddress())
                 .price(dto.getPrice())
                 .type(determinePropertyType(dto.getType()))
+                .houseType(determineHouseType(dto.getHouseType()))
                 .status(PropertyStatus.PENDING)
                 .bedrooms(dto.getBedrooms())
                 .bathrooms(dto.getBathrooms())
@@ -234,10 +237,25 @@ public class PropertyService {
     }
 
     private PropertyType determinePropertyType(String typeStr) {
-        // Map form values like "HOUSE", "APARTMENT" to SALE/RENT
-        // Since the form doesn't specify SALE vs RENT, default to SALE
-        // This can be enhanced later with a form field
-        return PropertyType.SALE;
+        if (typeStr == null || typeStr.isBlank()) {
+            return PropertyType.SALE;
+        }
+        try {
+            return PropertyType.valueOf(typeStr.trim().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException e) {
+            return PropertyType.SALE;
+        }
+    }
+
+    private HouseType determineHouseType(String houseTypeStr) {
+        if (houseTypeStr == null || houseTypeStr.isBlank()) {
+            return null;
+        }
+        try {
+            return HouseType.valueOf(houseTypeStr.trim().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     /**
